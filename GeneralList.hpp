@@ -15,9 +15,14 @@ class List {
 		Dlist *_back;
 
 		void reccopy(const Dlist *ptr) {
-			if(ptr) { // if(ptr != nullptr) {
+			if(ptr) {
+
+			    if(ptr != nullptr) {
+
 				reccopy(ptr->next);
 				push_front(ptr->value);
+
+				}
 			}
 		}
 	public:
@@ -111,10 +116,12 @@ class List {
 
 		//CONVERT THIS FUNCTION
 		void pop_back() {
-			Llist *back_to_remove = _back;
+			Dlist *back_to_remove = _back;
+			_back = _back->prev;
 
-			if(_front->next!=nullptr) {
-				Llist *new_back = _front;
+			if(_front->next == nullptr) {
+				_front = nullptr;
+				Dlist *new_back = _front;
 				while(new_back->next!=_back) {
 					new_back=new_back->next;
 				}
@@ -137,10 +144,13 @@ class List {
 
 		//Modify this
 		void print() {
-			Llist *temp;
+			Dlist *temp;
 			for(temp=_front; temp!=nullptr; temp=temp->next) {
 				std::cout << temp->value << " ";
 			}
 			std::cout << std::endl;
 		}
-};
+		template<typename V> friend bool operator == (const List<V> &a, const List<V> &b);
+		template<typename V> friend bool operator != (const List<V> &a, const List<V> &b);
+}:
+
